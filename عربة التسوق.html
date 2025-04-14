@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إتمام الطلب - متجر الشناوي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="عربة التسوق.css">
+</head>
+<body>
+    <div class="container">
+        <div class="checkout-header">
+            <h1>إتمام عملية الشراء</h1>
+            <p>الرجاء إكمال المعلومات التالية لإتمام طلبك</p>
+        </div>
+        
+        <div class="checkout-content">
+            <div class="checkout-form">
+                <h2>معلومات التوصيل</h2>
+                
+                <form id="shippingForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">الاسم الأول</label>
+                            <input type="text" id="firstName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">الاسم الأخير</label>
+                            <input type="text" id="lastName" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">رقم الهاتف</label>
+                        <input type="tel" id="phone" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">العنوان</label>
+                        <input type="text" id="address" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">المدينة</label>
+                            <select id="city" class="form-control" required>
+                                <option value="">اختر المدينة</option>
+                                <option value="cairo">القاهرة</option>
+                                <option value="alexandria">الإسكندرية</option>
+                                <option value="giza">الجيزة</option>
+                                <option value="sharqia">الشرقية</option>
+                                <option value="dakahlia">الدقهلية</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="district">الحي/المنطقة</label>
+                            <input type="text" id="district" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">ملاحظات (اختياري)</label>
+                        <textarea id="notes" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn" id="completeOrderBtn">إتمام الطلب</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="checkout-summary">
+                <h2>ملخص الطلب</h2>
+                
+                <div class="order-items" id="orderItemsContainer">
+                    <!-- سيتم تعبئة المنتجات من سلة التسوق هنا -->
+                </div>
+                
+                <div class="order-summary">
+                    <div class="summary-row">
+                        <span>المجموع الجزئي</span>
+                        <span id="subtotal">0 ج.م</span>
+                    </div>
+                   
+                   
+                </div>
+                
+                <div class="payment-methods">
+                    <h3>طرق الدفع المتاحة</h3>
+                    
+                    <div class="payment-method selected" data-method="vodafone">
+                        <input type="radio" name="paymentMethod" id="vodafoneCash" value="vodafone" checked>
+                        <div class="payment-method-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="payment-method-details">
+                            <div class="payment-method-title">فودافون كاش</div>
+                            <div class="payment-method-desc">دفع آمن عبر محفظتك الموبايل</div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method" data-method="paypal">
+                        <input type="radio" name="paymentMethod" id="paypal" value="paypal">
+                        <div class="payment-method-icon">
+                            <i class="fab fa-paypal"></i>
+                        </div>
+                        <div class="payment-method-details">
+                            <div class="payment-method-title">باي بال</div>
+                            <div class="payment-method-desc">الدفع عبر باي بال</div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method" data-method="khamsat">
+                        <input type="radio" name="paymentMethod" id="khamsat" value="khamsat">
+                        <div class="payment-method-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <div class="payment-method-details">
+                            <div class="payment-method-title">خمسات</div>
+                            <div class="payment-method-desc">الدفع عبر منصة خمسات</div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method" data-method="instapay">
+                        <input type="radio" name="paymentMethod" id="instapay" value="instapay">
+                        <div class="payment-method-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="payment-method-details">
+                            <div class="payment-method-title">انستا باي</div>
+                            <div class="payment-method-desc">الدفع الفوري عبر الانترنت</div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method" data-method="kafil">
+                        <input type="radio" name="paymentMethod" id="kafil" value="kafil">
+                        <div class="payment-method-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="payment-method-details">
+                            <div class="payment-method-title">كفيل</div>
+                            <div class="payment-method-desc">الدفع الآمن عبر كفيل</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <label for="agreeTerms" class="terms-text">
+                        أوافق على <a href="#">الشروط والأحكام</a> و <a href="#">سياسة الخصوصية</a>
+                    </label>
+                </div>
+                
+                <div class="secure-checkout">
+                    <i class="fas fa-lock"></i>
+                    <span>شراء آمن ومحمي</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="عربة التسوق.js"></script>
+
+</body>
+</html>
