@@ -66,6 +66,7 @@
         .logo {
             display: flex;
             align-items: center;
+            flex: 1;
         }
 
         .logo img {
@@ -80,6 +81,21 @@
 
         .dark-mode .logo h1 {
             color: var(--secondary-color);
+        }
+
+        /* زر القائمة */
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--black);
+            margin-left: 15px;
+            display: none;
+        }
+
+        .dark-mode .menu-toggle {
+            color: var(--white);
         }
 
         .nav-links {
@@ -179,6 +195,59 @@
 
         .dark-mode .cart-count {
             background-color: var(--secondary-color);
+        }
+
+        /* القائمة المنبثقة */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: var(--white);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            transition: right 0.3s ease;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .dark-mode .mobile-menu {
+            background-color: #2d2d2d;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            margin-top: 50px;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 20px;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--black);
+            font-size: 18px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .dark-mode .mobile-menu a {
+            color: var(--white);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .dark-mode .mobile-menu a:hover {
+            color: var(--secondary-color);
         }
 
         .search-overlay {
@@ -1002,16 +1071,25 @@
 
         @media (max-width: 768px) {
             .header-content {
-                flex-direction: column;
+                flex-direction: row;
                 padding: 15px 0;
             }
 
             .logo {
-                margin-bottom: 15px;
+                margin-bottom: 0;
+                flex: 1;
             }
 
+            .menu-toggle {
+                display: block;
+            }
+            
             .nav-links {
-                margin-bottom: 15px;
+                display: none;
+            }
+
+            .header-actions {
+                margin-right: 15px;
             }
 
             .hero h2 {
@@ -1048,6 +1126,9 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
                     <h1>متجر الشناوي</h1>
                 </div>
                 
@@ -1074,6 +1155,17 @@
             </div>
         </div>
     </header>
+
+    <!-- القائمة المنبثقة للهاتف -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="shop.html">الرئيسية</a></li>
+            <li><a href="#products">المنتجات</a></li>
+            <li><a href="#categories">الأقسام</a></li>
+            <li><a href="#payment">طرق الدفع</a></li>
+            <li><a href="#contact">اتصل بنا</a></li>
+        </ul>
+    </div>
 
     <!-- عربة التسوق الجانبية -->
     <div class="cart-sidebar" id="cartSidebar">
@@ -1426,11 +1518,34 @@
             }
         });
 
+        // القائمة المنبثقة للهواتف
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        // إغلاق القائمة عند النقر خارجها
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // إغلاق القائمة عند النقر على رابط
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        });
+
         // عربة التسوق
         const cartBtn = document.getElementById('cartBtn');
         const cartSidebar = document.getElementById('cartSidebar');
         const closeCart = document.getElementById('closeCart');
-        const overlay = document.getElementById('overlay');
         const cartCount = document.querySelector('.cart-count');
         const addToCartBtns = document.querySelectorAll('.add-to-cart');
         const cartItemsContainer = document.getElementById('cartItemsContainer');
@@ -1959,8 +2074,8 @@
             return stars;
         }
         document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
+            e.preventDefault();
+        });
     </script>
 </body>
 </html>
