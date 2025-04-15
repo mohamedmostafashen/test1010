@@ -1,5 +1,9 @@
 // تبديل الوضع المظلم
 
+
+
+
+
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 
@@ -901,38 +905,52 @@ document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
 });
 window.addEventListener("load", () => {
-    document.body.classList.remove("preload");
+  document.body.classList.remove("preload");
+});
+
+// Lazy load للصور
+document.addEventListener("DOMContentLoaded", () => {
+  const lazyImages = document.querySelectorAll("img[loading='lazy']");
+  lazyImages.forEach(img => {
+    img.loading = "lazy";
   });
-  
-  // Lazy load للصور
-  document.addEventListener("DOMContentLoaded", () => {
-    const lazyImages = document.querySelectorAll("img[loading='lazy']");
-    lazyImages.forEach(img => {
-      img.loading = "lazy";
-    });
-  });
-  
-  // تحسين أداء السكول
-  let lastKnownScrollPosition = 0;
-  let ticking = false;
-  
-  function doSomething(scrollPos) {
-    // مثال: تغيير لون الهيدر أثناء التمرير
-    const header = document.querySelector("header");
-    if (header) {
-      header.classList.toggle("scrolled", scrollPos > 10);
-    }
+});
+
+// تحسين أداء السكول
+let lastKnownScrollPosition = 0;
+let ticking = false;
+
+function doSomething(scrollPos) {
+  // مثال: تغيير لون الهيدر أثناء التمرير
+  const header = document.querySelector("header");
+  if (header) {
+    header.classList.toggle("scrolled", scrollPos > 10);
   }
-  
-  window.addEventListener('scroll', function (e) {
-    lastKnownScrollPosition = window.scrollY;
-  
-    if (!ticking) {
-      window.requestAnimationFrame(function () {
-        doSomething(lastKnownScrollPosition);
-        ticking = false;
-      });
-  
-      ticking = true;
-    }
-  });
+}
+
+window.addEventListener('scroll', function (e) {
+  lastKnownScrollPosition = window.scrollY;
+
+  if (!ticking) {
+    window.requestAnimationFrame(function () {
+      doSomething(lastKnownScrollPosition);
+      ticking = false;
+    });
+
+    ticking = true;
+  }
+});
+const icon = document.getElementById('messengerIcon');
+const tooltip = document.getElementById('messengerTooltip');
+
+icon.addEventListener('mouseenter', () => {
+    tooltip.style.display = 'block';
+});
+
+icon.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+});
+
+icon.addEventListener('click', () => {
+    window.open('https://www.facebook.com/AlfananWeb?mibextid=wwXIfr&rdid=SVeSgqMiGYB5vndS&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16UcaGxzQi%2F%3Fmibextid%3DwwXIfr', '_blank');
+});
